@@ -1,9 +1,9 @@
 # TP Integrador Objetos 2017
 
-Grupo: <Completar>
+Grupo: (Completar)
 
 ### Integrantes
 
-* <Completar>
+* (Completar)
 * otro...
 
