@@ -1,9 +1,11 @@
 # TP Integrador Objetos 2017
 
-Grupo: (Completar)
+Grupo: Sharkisha
 
 ### Integrantes
 
-* (Completar)
-* otro...
+* Guozden, Sebastian
+* Liloia Scott, Nicolas
+* Masotta, Augusto
+* Mendez Corridoni, Matias
 
