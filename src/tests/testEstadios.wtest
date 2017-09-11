@@ -1,0 +1,13 @@
+import model.estadios.*
+test "La capacidad de La Trastienda para el 05 de agosto del 2017 es 700 porque es sábado" {
+	assert.equals(700, laTrastienda.capacidad(20170805))
+}
+test "La capacidad de La Trastienda para el 08 de agosto del 2017 es 400 porque no es sábado" {
+	assert.equals(700, laTrastienda.capacidad(20170808))
+}
+test "La capacidad del Luna Park para el 05 de agosto del 2017 es 9290" {
+	assert.equals(9290, lunaPark.capacidad(20170805))
+}
+test "La capacidad del Luna Park para el 08 de agosto del 2017 es 9290" {
+	assert.equals(9290, lunaPark.capacidad(20170808))
+}
