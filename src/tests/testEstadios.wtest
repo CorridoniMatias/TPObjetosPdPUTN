@@ -1,7 +1,6 @@
 import model.estadios.*
 
-describe "Se hacen todos los tests correspondientes a los estadios"
-{
+describe "Test Estadios"{	
 	test "La capacidad de La Trastienda para el 05 de agosto del 2017 es 700 porque es sabado" {
 		assert.equals(700, laTrastienda.capacidad(5,8,2017))
 	}
