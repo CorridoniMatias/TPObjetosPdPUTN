@@ -2,84 +2,109 @@ import model.estadios.*
 import model.musicos.*
 
 describe "Test musicos con canciones y presentaciones"{
-	var cisne = new Cancion(312, "Hoy el viento se abrió quedó vacío el aire una vez más y el manantial brotó y nadie está aquí y puedo ver que solo estallan las hojas al brillar")
+	var cisne = new Cancion(312, "Hoy el viento se abrio quedo vacio el aire una vez mas y el manantial broto y nadie esta aqui y puedo ver que solo estallan las hojas al brillar")
 	var laFamilia = new Cancion(264, "Quiero brindar por mi gente sencilla, por el amor brindo por la familia")
-	var presentacion1 = new Presentacion (lunaPark, 20, 4, 2017)
-	var presentacion2 = new Presentacion (laTrastienda, 15, 11, 2017)
+	var presentacionLunaPark = new Presentacion (lunaPark, 20, 4, 2017)
+	var presentacionLaTrastienda = new Presentacion (laTrastienda, 15, 11, 2017)
+	
 	fixture {
-		presentacion1.agregarMusico(joaquin)
-		presentacion1.agregarMusico(lucia)
-		presentacion1.agregarMusico(luisAlberto)
-		presentacion2.agregarMusico(joaquin)
-		presentacion2.agregarMusico(lucia)
-		presentacion2.agregarMusico(luisAlberto)
+		presentacionLunaPark.agregarMusico(joaquin)
+		presentacionLunaPark.agregarMusico(lucia)
+		presentacionLunaPark.agregarMusico(luisAlberto)
+		presentacionLaTrastienda.agregarMusico(joaquin)
+		presentacionLaTrastienda.agregarMusico(lucia)
+		presentacionLaTrastienda.agregarMusico(luisAlberto)
 	}
-	test "Joaquín que canta en el grupo Pimpinela posee habilidad 25"{
-		assert.equals(25, joaquin.habilidad("canta"))
+	
+	test "Joaquin que canta en el grupo Pimpinela posee habilidad 25"{
+		assert.equals(25, joaquin.habilidad())
 	}
-	test "Joaquín si se convierte en solista posee habilidad 20"{
+	
+	test "Joaquin si se convierte en solista posee habilidad 20"{
 		joaquin.lanzarSolista()
-		assert.equals(20, joaquin.habilidad("canta"))
+		assert.equals(20, joaquin.habilidad())
 	}
-	test "Lucía que canta en el grupo Pimpinela posee habilidad 50"{
-		assert.equals(50, lucia.habilidad("canta"))
+	
+	test "Lucia que canta en el grupo Pimpinela posee habilidad 50"{
+		assert.equals(50, lucia.habilidad())
 	}
-	test "Lucía si se convierte en solista posee habilidad 70"{
+	
+	test "Lucia si se convierte en solista posee habilidad 70"{
 		lucia.lanzarSolista()
-		assert.equals(70, lucia.habilidad("canta"))
+		assert.equals(70, lucia.habilidad())
 	}
+	
 	test "Luis Alberto tocando con la Fender posee habilidad 80"{
-		assert.equals(80, luisAlberto.habilidad(fender))
+		luisAlberto.guitarra(fender)
+		assert.equals(80, luisAlberto.habilidad())
 	}
+	
 	test "Luis Alberto tocando con la Gibson sana posee habilidad 100"{
-		assert.equals(100, luisAlberto.habilidad(gibson))
+		luisAlberto.guitarra(gibson)
+		assert.equals(100, luisAlberto.habilidad())
 	}
+	
 	test "Luis Alberto tocando con la Gibson rota posee habilidad 100"{
 		gibson.romperse()
-		assert.equals(40, luisAlberto.habilidad(gibson))
+		luisAlberto.guitarra(gibson)
+		assert.equals(40, luisAlberto.habilidad())
 	}
-	test "Joaquín no interpreta bien la canción “La Familia”"{
+	
+	test "Joaquin no interpreta bien la cancion La Familia"{
 		assert.notThat(joaquin.interpretaBien(laFamilia))
 	}
-	test "Joaquín interpreta bien la canción “Cisne”"{
+	
+	test "Joaquin interpreta bien la cancion Cisne"{
 		assert.that(joaquin.interpretaBien(cisne))
 	}
-	test "Lucía interpreta bien la canción “La Familia”"{
+	
+	test "Lucia interpreta bien la cancion La Familia"{
 		assert.that(lucia.interpretaBien(laFamilia))
 	}
-	test "Lucía no interpreta bien la canción “Cisne”"{
+	
+	test "Lucia no interpreta bien la cancion Cisne"{
 		assert.notThat(lucia.interpretaBien(cisne))
 	}
-	test "Luis Alberto interpreta bien la canción “La Familia”"{
+	
+	test "Luis Alberto interpreta bien la cancion La Familia"{
 		assert.that(luisAlberto.interpretaBien(laFamilia))
 	}
-	test "Luis Alberto interpreta bien la canción “Cisne”"{
+	
+	test "Luis Alberto interpreta bien la cancion Cisne"{
 		assert.that(luisAlberto.interpretaBien(cisne))
 	}
-	test "Joaquín cobra 50 por la presentación del Luna Park"{
-		assert.equals(50, joaquin.costoPresentacion(presentacion1))
+	
+	test "Joaquin cobra 50 por la presentacion del Luna Park"{
+		assert.equals(50, joaquin.costoPresentacion(presentacionLunaPark))
 	}
-	test "Joaquín cobra 100 por la presentación de la Trastienda del 15/11/2017 actuando solo"{
-		presentacion2.removerMusico(lucia)
-		presentacion2.removerMusico(luisAlberto)
-		assert.equals(100, presentacion2.costo())
+	
+	test "Joaquin cobra 100 por la presentacion de la Trastienda del 15/11/2017 actuando solo"{
+		presentacionLaTrastienda.removerMusico(lucia)
+		presentacionLaTrastienda.removerMusico(luisAlberto)
+		assert.equals(100, presentacionLaTrastienda.costo())
 	}
-	test "Lucía cobra 500 por la presentación del Luna Park"{
-		assert.equals(500, lucia.costoPresentacion(presentacion1))
+	
+	test "Lucia cobra 500 por la presentacion del Luna Park"{
+		assert.equals(500, lucia.costoPresentacion(presentacionLunaPark))
 	}
-	test "Lucía cobra 400 por la presentación de la Trastienda"{
-		assert.equals(400, lucia.costoPresentacion(presentacion2))
+	
+	test "Lucia cobra 400 por la presentacion de la Trastienda"{
+		assert.equals(400, lucia.costoPresentacion(presentacionLaTrastienda))
 	}
-	test "Luis Alberto cobra 1000 por la presentación del Luna Park"{
-		assert.equals(1000, luisAlberto.costoPresentacion(presentacion1))
+	
+	test "Luis Alberto cobra 1000 por la presentacion del Luna Park"{
+		assert.equals(1000, luisAlberto.costoPresentacion(presentacionLunaPark))
 	}
-	test "Luis Alberto cobra 1200 por la presentación de la Trastienda"{
-		assert.equals(1200, luisAlberto.costoPresentacion(presentacion2))
+	
+	test "Luis Alberto cobra 1200 por la presentacion de la Trastienda"{
+		assert.equals(1200, luisAlberto.costoPresentacion(presentacionLaTrastienda))
 	}
-	test "El costo de la presentación del Luna Park es de 1550"{
-		assert.equals(1550, presentacion1.costo())
+	
+	test "El costo de la presentacion del Luna Park es de 1550"{
+		assert.equals(1550, presentacionLunaPark.costo())
 	}
-	test "El costo de la presentación de la Trastienda el 15/11/2017 es de 1650"{
-		assert.equals(1650, presentacion2.costo())
+	
+	test "El costo de la presentacion de la Trastienda el 15/11/2017 es de 1650"{
+		assert.equals(1650, presentacionLaTrastienda.costo())
 	}
 }

@@ -1,8 +1,10 @@
 object joaquin{
 	var grupo = "Pimpinela"
-	method habilidad(_){
+	
+	method habilidad(){
 		return 20 + self.habilidadExtra()
 	}
+	
 	method habilidadExtra(){
 		if (grupo != null){
 			return 5
@@ -10,9 +12,11 @@ object joaquin{
 			return 0
 		}
 	}
+	
 	method interpretaBien(cancion){
 		return cancion.duracion() > 300
 	}
+	
 	method costoPresentacion(presentacion){
 		if (presentacion.cantMusicos() == 1){
 			return 100
@@ -20,6 +24,7 @@ object joaquin{
 			return 50
 		}
 	}
+	
 	method lanzarSolista() {
 		grupo = null 
 	}
@@ -27,55 +32,77 @@ object joaquin{
 
 object lucia{
 	var grupo = "Pimpinela"
-	method habilidad(rol){
-		return 70 + self.habilidadExtra(rol)
+	
+	method habilidad(){
+		return 70 + self.habilidadExtra()
 	}
-	method habilidadExtra(rol){
-		if (rol == "canta" && grupo != null){
+	
+	method habilidadExtra(){
+		if (grupo != null){
 			return -20
 		}else{
 			return 0
 		}
 	}
+	
 	method interpretaBien(cancion){
 		return cancion.letra().contains("familia")
 	}
+	
 	method costoPresentacion(presentacion){
-		if (presentacion.lugar().capacidad(presentacion.dia(), presentacion.mes(), presentacion.anio()) > 5000){
+		if (presentacion.capacidadLugar() > 5000){
 			return 500
 		}else{
 			return 400
 		}
 	}
+	
 	method lanzarSolista() {
 		grupo = null 
 	}
 }
 
 object luisAlberto{
-	method habilidad(guitarra){
+	
+	var guitarra
+	
+	method habilidad(){
 		return 100.min(8 * guitarra.valor())
 	}
+	
 	method interpretaBien(cancion){
 		return true
 	}
+	
+	method guitarra() = guitarra
+	
+	method guitarra(_guitarra) {
+		guitarra = _guitarra
+	}
+	
 	method costoPresentacion(presentacion){
-		var fecha = new wollok.lang.Date(presentacion.dia(), presentacion.mes(), presentacion.anio())
+		var fechaPresentacion = presentacion.fecha()
+		
 		var fechaLimite = new wollok.lang.Date(30, 9, 2017)
-		if (fechaLimite >= fecha) {
+		
+		if (fechaLimite >= fechaPresentacion) {
 			return 1000
 		}else{
 			return 1200
 		}
 	}
 }
+
 object fender{
 	method valor(){
 		return 10
 	}
 }
+
 object gibson{
+	
 	var sana = true
+	
 	method valor(){
 		if (sana){
 			return 15
@@ -83,6 +110,7 @@ object gibson{
 			return 5
 		}
 	}
+	
 	method romperse(){
 		sana = false
 	}
@@ -105,37 +133,34 @@ class Cancion{
 
 class Presentacion{
 	var lugar
-	var dia
-	var mes
-	var anio
+	var fecha
 	var musicos = #{}
+	
 	constructor(_lugar, _dia, _mes, _anio) {
 		lugar = _lugar
-		dia = _dia
-		mes = _mes 
-		anio = _anio
+		fecha =  new wollok.lang.Date(_dia, _mes, _anio)
 	}
+	
 	method agregarMusico(musico){
 		musicos.add(musico)
 	}
+	
 	method costo(){
-		return musicos.map({musico => musico.costoPresentacion(self)}).sum()
+		return musicos.sum({musico => musico.costoPresentacion(self)})
 	}
+	
 	method lugar(){
 		return lugar
 	}
-	method dia(){
-		return dia
-	}
-	method mes(){
-		return mes
-	}
-	method anio(){
-		return anio
-	}
+	
+	method capacidadLugar() = lugar.capacidad(fecha)
+	
+	method fecha() = fecha
+	
 	method cantMusicos(){
 		return musicos.size()
 	}
+	
 	method removerMusico(nombre){
 		musicos.remove(nombre)
 	}
