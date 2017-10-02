@@ -2,18 +2,18 @@ import model.estadios.*
 
 describe "Test Estadios"{	
 	test "La capacidad de La Trastienda para el 05 de agosto del 2017 es 700 porque es sabado" {
-		assert.equals(700, laTrastienda.capacidad(5,8,2017))
+		assert.equals(700, laTrastienda.capacidad(new wollok.lang.Date(5,8,2017)))
 	}
 	
 	test "La capacidad de La Trastienda para el 08 de agosto del 2017 es 400 porque no es sabado" {
-		assert.equals(400, laTrastienda.capacidad(8,8,2017))
+		assert.equals(400, laTrastienda.capacidad(new wollok.lang.Date(8,8,2017)))
 	}
 	
 	test "La capacidad del Luna Park para el 05 de agosto del 2017 es 9290" {
-		assert.equals(9290, lunaPark.capacidad(5,8,2017))
+		assert.equals(9290, lunaPark.capacidad(new wollok.lang.Date(5,8,2017)))
 	}
 	
 	test "La capacidad del Luna Park para el 08 de agosto del 2017 es 9290" {
-		assert.equals(9290, lunaPark.capacidad(8,8,2017))
+		assert.equals(9290, lunaPark.capacidad(new wollok.lang.Date(8,8,2017)))
 	}
 }

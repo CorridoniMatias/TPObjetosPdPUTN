@@ -4,8 +4,8 @@ import model.musicos.*
 describe "Test musicos con canciones y presentaciones"{
 	var cisne = new Cancion(312, "Hoy el viento se abrio quedo vacio el aire una vez mas y el manantial broto y nadie esta aqui y puedo ver que solo estallan las hojas al brillar")
 	var laFamilia = new Cancion(264, "Quiero brindar por mi gente sencilla, por el amor brindo por la familia")
-	var presentacionLunaPark = new Presentacion (lunaPark, 20, 4, 2017)
-	var presentacionLaTrastienda = new Presentacion (laTrastienda, 15, 11, 2017)
+	var presentacionLunaPark = new Presentacion (lunaPark, new wollok.lang.Date(20, 4, 2017))
+	var presentacionLaTrastienda = new Presentacion (laTrastienda, new wollok.lang.Date(15, 11, 2017))
 	
 	fixture {
 		presentacionLunaPark.agregarMusico(joaquin)

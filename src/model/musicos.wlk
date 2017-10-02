@@ -46,7 +46,7 @@ object lucia{
 	}
 	
 	method interpretaBien(cancion){
-		return cancion.letra().contains("familia")
+		return cancion.contieneLetra("familia")
 	}
 	
 	method costoPresentacion(presentacion){
@@ -81,11 +81,9 @@ object luisAlberto{
 	}
 	
 	method costoPresentacion(presentacion){
-		var fechaPresentacion = presentacion.fecha()
-		
 		var fechaLimite = new wollok.lang.Date(30, 9, 2017)
 		
-		if (fechaLimite >= fechaPresentacion) {
+		if (fechaLimite >= presentacion.fecha()) {
 			return 1000
 		}else{
 			return 1200
@@ -129,6 +127,11 @@ class Cancion{
 	method duracion(){
 		return duracion
 	}
+	
+	method contieneLetra(texto)
+	{
+		return letra.contains(texto)
+	}
 }
 
 class Presentacion{
@@ -136,9 +139,9 @@ class Presentacion{
 	var fecha
 	var musicos = #{}
 	
-	constructor(_lugar, _dia, _mes, _anio) {
+	constructor(_lugar, _fecha) {
 		lugar = _lugar
-		fecha =  new wollok.lang.Date(_dia, _mes, _anio)
+		fecha =  _fecha
 	}
 	
 	method agregarMusico(musico){
