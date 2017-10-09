@@ -1,7 +1,14 @@
 import model.estadios.*
 import model.musicos.*
+import model.instrumentos.*
+import model.canciones.*
+import model.presentaciones.*
 
 describe "Test musicos con canciones y presentaciones"{
+	var joaquin = new DeGrupo("Pimpinela", 20, 5)
+	var lucia = new VocalistaPopular("Pimpinela", 70, "familia")
+	var kike = new DeGrupo(null, 60, 20)
+	var soledad = new VocalistaPopular(null, 55, "amor")
 	var cisne = new Cancion(312, "Hoy el viento se abrio quedo vacio el aire una vez mas y el manantial broto y nadie esta aqui y puedo ver que solo estallan las hojas al brillar")
 	var laFamilia = new Cancion(264, "Quiero brindar por mi gente sencilla, por el amor brindo por la familia")
 	var presentacionLunaPark = new Presentacion (lunaPark, new wollok.lang.Date(20, 4, 2017))
@@ -16,7 +23,7 @@ describe "Test musicos con canciones y presentaciones"{
 		presentacionLaTrastienda.agregarMusico(luisAlberto)
 	}
 	
-	test "Joaquin que canta en el grupo Pimpinela posee habilidad 25"{
+	test "Musico DeGrupo con un grupo calcula bien habilidad"{
 		assert.equals(25, joaquin.habilidad())
 	}
 	

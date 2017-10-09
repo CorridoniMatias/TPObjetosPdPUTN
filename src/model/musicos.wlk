@@ -1,13 +1,23 @@
-object joaquin{
-	var grupo = "Pimpinela"
+class Musico{
+	var grupo
+	var habilidadBase
+	var elementoHabilidadExtra
+	constructor(_grupo ,_habilidadBase , _elementoHabilidadExtra) {
+		grupo = _grupo
+		habilidadBase = _habilidadBase
+		elementoHabilidadExtra = _elementoHabilidadExtra
+	}
+}
+
+class DeGrupo inherits Musico{
 	
 	method habilidad(){
-		return 20 + self.habilidadExtra()
+		return habilidadBase + self.habilidadExtra()
 	}
 	
 	method habilidadExtra(){
 		if (grupo != null){
-			return 5
+			return elementoHabilidadExtra
 		}else{
 			return 0
 		}
@@ -30,11 +40,10 @@ object joaquin{
 	}
 }
 
-object lucia{
-	var grupo = "Pimpinela"
+class VocalistaPopular inherits Musico{
 	
 	method habilidad(){
-		return 70 + self.habilidadExtra()
+		return habilidadBase + self.habilidadExtra()
 	}
 	
 	method habilidadExtra(){
@@ -46,7 +55,7 @@ object lucia{
 	}
 	
 	method interpretaBien(cancion){
-		return cancion.contieneLetra("familia")
+		return cancion.contienePalabra(elementoHabilidadExtra)
 	}
 	
 	method costoPresentacion(presentacion){
@@ -62,12 +71,11 @@ object lucia{
 	}
 }
 
-object luisAlberto{
-	
+object luisAlberto inherits Musico(null,8,null){
 	var guitarra
 	
 	method habilidad(){
-		return 100.min(8 * guitarra.valor())
+		return 100.min(habilidadBase * guitarra.valor())
 	}
 	
 	method interpretaBien(cancion){
@@ -80,91 +88,11 @@ object luisAlberto{
 		guitarra = _guitarra
 	}
 	
-	method costoPresentacion(presentacion){
-		var fechaLimite = new wollok.lang.Date(30, 9, 2017)
-		
-		if (fechaLimite >= presentacion.fecha()) {
+	method costoPresentacion(presentacion){		
+		if (30/9/2017 >= presentacion.fecha()) {
 			return 1000
 		}else{
 			return 1200
 		}
-	}
-}
-
-object fender{
-	method valor(){
-		return 10
-	}
-}
-
-object gibson{
-	
-	var sana = true
-	
-	method valor(){
-		if (sana){
-			return 15
-		}else{
-			return 5
-		}
-	}
-	
-	method romperse(){
-		sana = false
-	}
-}
-
-class Cancion{
-	var duracion
-	var letra
-	constructor(_duracion, _letra) {
-		duracion = _duracion
-		letra = _letra
-	}
-	method letra(){
-		return letra
-	}
-	method duracion(){
-		return duracion
-	}
-	
-	method contieneLetra(texto)
-	{
-		return letra.contains(texto)
-	}
-}
-
-class Presentacion{
-	var lugar
-	var fecha
-	var musicos = #{}
-	
-	constructor(_lugar, _fecha) {
-		lugar = _lugar
-		fecha =  _fecha
-	}
-	
-	method agregarMusico(musico){
-		musicos.add(musico)
-	}
-	
-	method costo(){
-		return musicos.sum({musico => musico.costoPresentacion(self)})
-	}
-	
-	method lugar(){
-		return lugar
-	}
-	
-	method capacidadLugar() = lugar.capacidad(fecha)
-	
-	method fecha() = fecha
-	
-	method cantMusicos(){
-		return musicos.size()
-	}
-	
-	method removerMusico(nombre){
-		musicos.remove(nombre)
 	}
 }
