@@ -14,6 +14,10 @@ class Cancion{
 	
 	method contienePalabra(texto)
 	{
-		return letra.contains(texto)
+		return letra.toLowerCase().contains(texto.toLowerCase())
 	}
+	
+	method largoLetra() = letra.split(" ").size()
+	
+	method esMinimalista() = duracion < 180
 }

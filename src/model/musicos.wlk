@@ -2,14 +2,41 @@ class Musico{
 	var grupo
 	var habilidadBase
 	var elementoHabilidadExtra
+	var albumes = #{}
+	
 	constructor(_grupo ,_habilidadBase , _elementoHabilidadExtra) {
 		grupo = _grupo
 		habilidadBase = _habilidadBase
 		elementoHabilidadExtra = _elementoHabilidadExtra
 	}
+	
+	method agregarAlbum(_album)
+	{
+		albumes.add(_album)
+	}
+	 
+	method esMinimalista()
+	{
+		return albumes.all({album => album.cancionesMinimalistas()})
+	}
+	 
+	method cancionesConPalabra(palabra)
+	{
+		return albumes.flatMap({ album => album.cancionesConPalabra(palabra) })
+	}
+ 	
+ 	method duracionObra()
+ 	{
+ 		return albumes.sum({album => album.duracion()})
+ 	}
+	
+	method laPego()
+	{
+		return albumes.all({album => album.bienVendido()})
+	}	 
 }
 
-class DeGrupo inherits Musico{
+class MusicoDeGrupo inherits Musico{
 	
 	method habilidad(){
 		return habilidadBase + self.habilidadExtra()
@@ -40,7 +67,7 @@ class DeGrupo inherits Musico{
 	}
 }
 
-class VocalistaPopular inherits Musico{
+class MusicoVocalistaPopular inherits Musico{
 	
 	method habilidad(){
 		return habilidadBase + self.habilidadExtra()
@@ -89,7 +116,7 @@ object luisAlberto inherits Musico(null,8,null){
 	}
 	
 	method costoPresentacion(presentacion){		
-		if (30/9/2017 >= presentacion.fecha()) {
+		if (new Date(30,9,2017) >= presentacion.fecha()) {
 			return 1000
 		}else{
 			return 1200

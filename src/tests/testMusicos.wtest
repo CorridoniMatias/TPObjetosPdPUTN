@@ -3,17 +3,25 @@ import model.musicos.*
 import model.instrumentos.*
 import model.canciones.*
 import model.presentaciones.*
+import model.albumes.*
 
 describe "Test musicos con canciones y presentaciones"{
-	var joaquin = new DeGrupo("Pimpinela", 20, 5)
-	var lucia = new VocalistaPopular("Pimpinela", 70, "familia")
-	var kike = new DeGrupo(null, 60, 20)
-	var soledad = new VocalistaPopular(null, 55, "amor")
+	var joaquin = new MusicoDeGrupo("Pimpinela", 20, 5)
+	var lucia = new MusicoVocalistaPopular("Pimpinela", 70, "familia")
+	var kike = new MusicoDeGrupo(null, 60, 20)
+	var soledad = new MusicoVocalistaPopular(null, 55, "amor")
 	var cisne = new Cancion(312, "Hoy el viento se abrio quedo vacio el aire una vez mas y el manantial broto y nadie esta aqui y puedo ver que solo estallan las hojas al brillar")
 	var laFamilia = new Cancion(264, "Quiero brindar por mi gente sencilla, por el amor brindo por la familia")
 	var presentacionLunaPark = new Presentacion (lunaPark, new wollok.lang.Date(20, 4, 2017))
 	var presentacionLaTrastienda = new Presentacion (laTrastienda, new wollok.lang.Date(15, 11, 2017))
-	
+	var especialLaFamilia = new Album("Especial La Familia", new Date(17,6,1992), 100000, 89000)
+	var laSole = new Album("La Sole", new Date(4, 2, 2005), 200000, 130000)
+	var eres = new Cancion(145, "Eres lo mejor que me paso en la vida, no tengo duda, no habra mas nada despues de ti. Eres lo que le dio brillo al dia a dia, y asi sera por siempre, no cambiara, hasta el final de mis dias")
+	var corazonAmericano = new Cancion(154, "Canta corazon, canta mas alto, que tu pena al fin se va marchando, el nuevo milenio ha de encontrarnos, junto corazon, como soñamos.")
+	var paraLosArboles = new Album("Para los Arboles", new Date(31,3,2003), 50000, 49000)
+	var almaDeDiamante = new Cancion(216, "Ven a mi con tu dulce luz alma de diamante. Y aunque el sol se nuble despues sos alma de diamante. Cielo o piel silencio o verdad sos alma de diamante. Por eso ven asi con la humanidad alma de diamante")
+	var justCrisantemo = new Album("Just Crisantemo", new Date(5, 12, 2007), 28000, 27500)
+	var crisantemo = new Cancion(175, "Tocame junto a esta pared, yo quede por aqui... cuando no hubo mas luz... quiero mirar a traves de mi piel... Crisantemo, que se abrio... encuentra el camino hacia el cielo")
 	fixture {
 		presentacionLunaPark.agregarMusico(joaquin)
 		presentacionLunaPark.agregarMusico(lucia)
@@ -21,6 +29,16 @@ describe "Test musicos con canciones y presentaciones"{
 		presentacionLaTrastienda.agregarMusico(joaquin)
 		presentacionLaTrastienda.agregarMusico(lucia)
 		presentacionLaTrastienda.agregarMusico(luisAlberto)
+		especialLaFamilia.agregarCancion(laFamilia)
+		joaquin.agregarAlbum(especialLaFamilia)
+		laSole.agregarCancion(eres)
+		laSole.agregarCancion(corazonAmericano)
+		soledad.agregarAlbum(laSole)
+		paraLosArboles.agregarCancion(cisne)
+		paraLosArboles.agregarCancion(almaDeDiamante)
+		justCrisantemo.agregarCancion(crisantemo)
+		luisAlberto.agregarAlbum(paraLosArboles)
+		luisAlberto.agregarAlbum(justCrisantemo)
 	}
 	
 	test "Musico DeGrupo con un grupo calcula bien habilidad"{
@@ -114,4 +132,86 @@ describe "Test musicos con canciones y presentaciones"{
 	test "El costo de la presentacion de la Trastienda el 15/11/2017 es de 1650"{
 		assert.equals(1650, presentacionLaTrastienda.costo())
 	}
+	
+	test "Reconoce si una cancion es corta"
+	{
+		assert.that(crisantemo.esMinimalista())
+	}
+	
+	test "Reconoce si una cancion no es corta"
+	{
+		assert.notThat(almaDeDiamante.esMinimalista())
+	}
+	
+	test "Reconoce si un musico es minimalista"
+	{
+		assert.that(soledad.esMinimalista())
+	}
+	
+	test "Reconoce si un musico con 2 albumes no es minimalista"
+	{
+		assert.notThat(luisAlberto.esMinimalista())
+	}
+	
+	test "Reconoce si otro musico con 1 album no es minimalista"
+	{
+		assert.notThat(joaquin.esMinimalista())
+	}
+	
+	test "Reconoce si las canciones de un musico poseen cierta palabra"
+	{
+		assert.equals(#{crisantemo, almaDeDiamante}, luisAlberto.cancionesConPalabra("cielo"))
+	}
+	
+	test "Reconoce cuando un musico no tiene canciones con cierta palabra"
+	{
+		assert.equals(#{}, luisAlberto.cancionesConPalabra("pujante"))
+	}
+	
+	test "Reconoce la duracion de obras de un musico sin albumes"
+	{
+		assert.equals(0, kike.duracionObra())
+	}
+	
+	test "Reconoce la duracion de obras de un musico con 1 album"
+	{
+		assert.equals(299, soledad.duracionObra())
+	}
+	
+	test "Reconoce la duracion de obras de un musico con 2 albumes"
+	{
+		assert.equals(703, luisAlberto.duracionObra())
+	}
+	
+	test "Reconoce la cancion mas larga de un album"
+	{
+		assert.equals(almaDeDiamante, paraLosArboles.cancionMasLarga())
+	}
+	
+	test "Reconoce la cancion mas larga de un album 2"
+	{
+		assert.equals(eres, laSole.cancionMasLarga())
+	}
+	
+	test "Reconoce la cancion mas larga de un album 3"
+	{
+		assert.equals(laFamilia, especialLaFamilia.cancionMasLarga())
+	}
+	
+	test "Reconoce si un artista con 2 albumes la pego"
+	{
+		assert.that(luisAlberto.laPego())
+	}
+	
+	test "Reconoce si un artista con 1 album no la pego"
+	{
+		assert.notThat(soledad.laPego())
+	}
+	
+	test "Reconoce si un artista con 1 album la pego"
+	{
+		assert.that(joaquin.laPego())
+	}
+	
+	
 }
