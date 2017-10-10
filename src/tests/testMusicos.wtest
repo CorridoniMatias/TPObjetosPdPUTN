@@ -45,49 +45,49 @@ describe "Test musicos con canciones y presentaciones"{
 		assert.equals(25, joaquin.habilidad())
 	}
 	
-	test "Joaquin si se convierte en solista posee habilidad 20"{
+	test "Habilidad de un Musico DeGrupo que se vuelve solista cambia"{
 		joaquin.lanzarSolista()
 		assert.equals(20, joaquin.habilidad())
 	}
 	
-	test "Lucia que canta en el grupo Pimpinela posee habilidad 50"{
+	test "Habilidad de un Musico que es vocalista popular"{
 		assert.equals(50, lucia.habilidad())
 	}
 	
-	test "Lucia si se convierte en solista posee habilidad 70"{
+	test "Habilidad de un Musico que es vocalista popular y se convierte a solista"{
 		lucia.lanzarSolista()
 		assert.equals(70, lucia.habilidad())
 	}
 	
-	test "Luis Alberto tocando con la Fender posee habilidad 80"{
+	test "Habilidad de Musico con cierto instrumento"{
 		luisAlberto.guitarra(fender)
 		assert.equals(80, luisAlberto.habilidad())
 	}
 	
-	test "Luis Alberto tocando con la Gibson sana posee habilidad 100"{
+	test "Habilidad de Musico con cierto instrumento sano"{
 		luisAlberto.guitarra(gibson)
 		assert.equals(100, luisAlberto.habilidad())
 	}
 	
-	test "Luis Alberto tocando con la Gibson rota posee habilidad 100"{
+	test "Habilidad de Musico con cierto instrumento roto"{
 		gibson.romperse()
 		luisAlberto.guitarra(gibson)
 		assert.equals(40, luisAlberto.habilidad())
 	}
 	
-	test "Joaquin no interpreta bien la cancion La Familia"{
+	test "Un musico de grupo no interpreta bien una cancion (larga)"{
 		assert.notThat(joaquin.interpretaBien(laFamilia))
 	}
 	
-	test "Joaquin interpreta bien la cancion Cisne"{
+	test "Un musico de grupo interpreta bien una cancion (corta)"{
 		assert.that(joaquin.interpretaBien(cisne))
 	}
 	
-	test "Lucia interpreta bien la cancion La Familia"{
+	test "Un musico vocalista popular interpreta bien una cancion"{
 		assert.that(lucia.interpretaBien(laFamilia))
 	}
 	
-	test "Lucia no interpreta bien la cancion Cisne"{
+	test "Un musico vocalista popular no interpreta bien una cancion"{
 		assert.notThat(lucia.interpretaBien(cisne))
 	}
 	
@@ -99,21 +99,21 @@ describe "Test musicos con canciones y presentaciones"{
 		assert.that(luisAlberto.interpretaBien(cisne))
 	}
 	
-	test "Joaquin cobra 50 por la presentacion del Luna Park"{
+	test "Cobro de un musico de grupo en una presentacion actuando con su grupo"{
 		assert.equals(50, joaquin.costoPresentacion(presentacionLunaPark))
 	}
 	
-	test "Joaquin cobra 100 por la presentacion de la Trastienda del 15/11/2017 actuando solo"{
+	test "Cobro de un musico de grupo en una presentacion actuando solo"{
 		presentacionLaTrastienda.removerMusico(lucia)
 		presentacionLaTrastienda.removerMusico(luisAlberto)
 		assert.equals(100, presentacionLaTrastienda.costo())
 	}
 	
-	test "Lucia cobra 500 por la presentacion del Luna Park"{
+	test "Cobro de un musico vocalista popular en estadio con mucha capacidad"{
 		assert.equals(500, lucia.costoPresentacion(presentacionLunaPark))
 	}
 	
-	test "Lucia cobra 400 por la presentacion de la Trastienda"{
+	test "Cobro de un musico vocalista popular en estadio con poca capacidad"{
 		assert.equals(400, lucia.costoPresentacion(presentacionLaTrastienda))
 	}
 	
@@ -125,11 +125,11 @@ describe "Test musicos con canciones y presentaciones"{
 		assert.equals(1200, luisAlberto.costoPresentacion(presentacionLaTrastienda))
 	}
 	
-	test "El costo de la presentacion del Luna Park es de 1550"{
+	test "El costo de la presentacion de un estadio de gran capacidad"{
 		assert.equals(1550, presentacionLunaPark.costo())
 	}
 	
-	test "El costo de la presentacion de la Trastienda el 15/11/2017 es de 1650"{
+	test "El costo de la presentacion de un estadio determinada fecha"{
 		assert.equals(1650, presentacionLaTrastienda.costo())
 	}
 	
@@ -188,12 +188,12 @@ describe "Test musicos con canciones y presentaciones"{
 		assert.equals(almaDeDiamante, paraLosArboles.cancionMasLarga())
 	}
 	
-	test "Reconoce la cancion mas larga de un album 2"
+	test "Reconoce la cancion mas larga de un album que contiene 2 canciones"
 	{
 		assert.equals(eres, laSole.cancionMasLarga())
 	}
 	
-	test "Reconoce la cancion mas larga de un album 3"
+	test "Reconoce la cancion mas larga de un album que contiene solo 1 cancion"
 	{
 		assert.equals(laFamilia, especialLaFamilia.cancionMasLarga())
 	}
