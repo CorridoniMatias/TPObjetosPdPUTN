@@ -1,4 +1,4 @@
-import model.estadios.*
+import model.estadio.*
 
 describe "Test Estadios"{	
 	test "La capacidad de un estadio en determinada fecha (sabado)" {

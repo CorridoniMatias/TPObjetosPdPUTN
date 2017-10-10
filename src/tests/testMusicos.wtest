@@ -1,9 +1,9 @@
-import model.estadios.*
-import model.musicos.*
-import model.instrumentos.*
-import model.canciones.*
-import model.presentaciones.*
-import model.albumes.*
+import model.estadio.*
+import model.musico.*
+import model.instrumento.*
+import model.cancion.*
+import model.presentacion.*
+import model.album.*
 
 describe "Test musicos con canciones y presentaciones"{
 	var joaquin = new MusicoDeGrupo("Pimpinela", 20, 5)
