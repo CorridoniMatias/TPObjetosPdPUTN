@@ -10,6 +10,12 @@ class Musico{
 		elementoHabilidadExtra = _elementoHabilidadExtra
 	}
 	
+	method habilidadExtra()
+		
+	method habilidad(){
+		return habilidadBase + self.habilidadExtra()
+	}
+	
 	method agregarAlbum(_album)
 	{
 		albumes.add(_album)
@@ -17,7 +23,7 @@ class Musico{
 	 
 	method esMinimalista()
 	{
-		return albumes.all({album => album.cancionesMinimalistas()})
+		return albumes.all({album => album.sonCancionesMinimalistas()})
 	}
 	 
 	method cancionesConPalabra(palabra)
@@ -38,11 +44,7 @@ class Musico{
 
 class MusicoDeGrupo inherits Musico{
 	
-	method habilidad(){
-		return habilidadBase + self.habilidadExtra()
-	}
-	
-	method habilidadExtra(){
+	override method habilidadExtra(){
 		if (grupo != null){
 			return elementoHabilidadExtra
 		}else{
@@ -68,12 +70,8 @@ class MusicoDeGrupo inherits Musico{
 }
 
 class MusicoVocalistaPopular inherits Musico{
-	
-	method habilidad(){
-		return habilidadBase + self.habilidadExtra()
-	}
-	
-	method habilidadExtra(){
+
+	override method habilidadExtra(){
 		if (grupo != null){
 			return -20
 		}else{
@@ -101,7 +99,12 @@ class MusicoVocalistaPopular inherits Musico{
 object luisAlberto inherits Musico(null,8,null){
 	var guitarra
 	
-	method habilidad(){
+	override method habilidadExtra()
+	{
+		return 0
+	}
+	
+	override method habilidad(){
 		return 100.min(habilidadBase * guitarra.valor())
 	}
 	

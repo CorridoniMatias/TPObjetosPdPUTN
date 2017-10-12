@@ -19,7 +19,7 @@ class Album {
 		canciones.add(cancion)
 	}
 	
-	method cancionesMinimalistas()
+	method sonCancionesMinimalistas()
 	{
 		return canciones.all({cancion => cancion.esMinimalista()})
 	}
