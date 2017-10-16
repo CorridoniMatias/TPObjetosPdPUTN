@@ -29,7 +29,7 @@ describe "Test musicos con canciones y presentaciones"{
 	var laFamiliaRemix = new Remix(laFamilia)
 	
 	//Mashup
-	var almaDeDiamanteCrisantemo = new Mashup(#{almaDeDiamante, crisantemo})
+	var almaDeDiamanteCrisantemo = new Mashup([almaDeDiamante, crisantemo])
 	
 	//Albumes
 	var especialLaFamilia 	= new Album("Especial La Familia", new Date(17,6,1992), 100000, 89000)
