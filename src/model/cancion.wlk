@@ -22,8 +22,7 @@ class Cancion{
 	method esMinimalista() = duracion < 180
 }
 
-class Remix inherits Cancion
-{
+class Remix inherits Cancion{
 	const multiplicadoDuracion = 3
 	
 	constructor(cancion) = super(cancion.duracion(), cancion.letra())
@@ -34,14 +33,15 @@ class Remix inherits Cancion
 	
 }
 
-class Mashup inherits Cancion
-{
+class Mashup inherits Cancion{
 	constructor(canciones) = super(0, null)
 	{
-		duracion = canciones.max({cancion => cancion.duracion()})
+		duracion = canciones.max({cancion => cancion.duracion()}).duracion()
 		letra = canciones.map({cancion => cancion.letra()}).join(" ").trim()		
 	}
 }
+
+object aliciaEnElPais inherits Cancion (510, "Quien sabe Alicia, este pais no estuvo hecho porque si. Te vas a ir, vas a salir pero te quedas, ¿donde más vas a ir? Y es que aqui, sabes el trabalenguas, trabalenguas, el asesino te asesina, y es mucho para ti. Se acabo ese juego que te hacía feliz."){}
 
 /*	Solucion con canciones dinamicas
  

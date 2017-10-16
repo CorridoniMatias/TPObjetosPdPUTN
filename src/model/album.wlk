@@ -36,5 +36,10 @@ class Album {
 	method bienVendido() = unidadesVendidas / unidadesEnVenta > 0.75
 	
 	method poseeCancion(cancion) = canciones.contains(cancion)
-
+	
+	method noContieneCanciones() = canciones.isEmpty()
+	
+	method mayorCancionSegunDuracion() = canciones.max({cancion => cancion.duracion()})
+	
+	method mayorCancionSegunLargoLetra() = self.cancionMasLarga()
 }

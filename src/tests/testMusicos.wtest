@@ -25,6 +25,12 @@ describe "Test musicos con canciones y presentaciones"{
 	var corazonAmericano = new Cancion(154, "Canta corazon, canta mas alto, que tu pena al fin se va marchando, el nuevo milenio ha de encontrarnos, junto corazon, como soñamos.")
 	var crisantemo 		 = new Cancion(175, "Tocame junto a esta pared, yo quede por aqui... cuando no hubo mas luz... quiero mirar a traves de mi piel... Crisantemo, que se abrio... encuentra el camino hacia el cielo")
 	
+	//Remixes
+	var laFamiliaRemix = new Remix(laFamilia)
+	
+	//Mashup
+	var almaDeDiamanteCrisantemo = new Mashup(#{almaDeDiamante, crisantemo})
+	
 	//Albumes
 	var especialLaFamilia 	= new Album("Especial La Familia", new Date(17,6,1992), 100000, 89000)
 	var laSole 				= new Album("La Sole", new Date(4, 2, 2005), 200000, 130000)
@@ -38,14 +44,16 @@ describe "Test musicos con canciones y presentaciones"{
 		presentacionLaTrastienda.agregarMusico(joaquin)
 		presentacionLaTrastienda.agregarMusico(lucia)
 		presentacionLaTrastienda.agregarMusico(luisAlberto)
+		
 		especialLaFamilia.agregarCancion(laFamilia)
-		joaquin.agregarAlbum(especialLaFamilia)
 		laSole.agregarCancion(eres)
 		laSole.agregarCancion(corazonAmericano)
-		soledad.agregarAlbum(laSole)
 		paraLosArboles.agregarCancion(cisne)
 		paraLosArboles.agregarCancion(almaDeDiamante)
 		justCrisantemo.agregarCancion(crisantemo)
+		
+		joaquin.agregarAlbum(especialLaFamilia)
+		soledad.agregarAlbum(laSole)
 		luisAlberto.agregarAlbum(paraLosArboles)
 		luisAlberto.agregarAlbum(justCrisantemo)
 	}
@@ -84,20 +92,25 @@ describe "Test musicos con canciones y presentaciones"{
 		assert.equals(40, luisAlberto.habilidad())
 	}
 	
-	test "Un musico de grupo no interpreta bien una cancion (larga)"{
-		assert.notThat(joaquin.interpretaBien(laFamilia))
+	test "Un musico de grupo interpreta bien una cancion de su autoria"{
+		assert.that(joaquin.interpretaBien(laFamilia))
 	}
 	
-	test "Un musico de grupo interpreta bien una cancion (corta)"{
+	test "Un musico de grupo interpreta bien una cancion por ragos particulares"{
 		assert.that(joaquin.interpretaBien(cisne))
 	}
 	
-	test "Un musico vocalista popular interpreta bien una cancion"{
+	test "Un musico vocalista popular interpreta bien una cancion por ragos particulares"{
 		assert.that(lucia.interpretaBien(laFamilia))
 	}
 	
 	test "Un musico vocalista popular no interpreta bien una cancion"{
 		assert.notThat(lucia.interpretaBien(cisne))
+	}
+	
+	test "Un musico vocalista popular sin grupo interpreta bien una cancion"{
+		lucia.lanzarSolista()
+		assert.that(lucia.interpretaBien(cisne))
 	}
 	
 	test "Luis Alberto interpreta bien la cancion La Familia"{
@@ -222,5 +235,47 @@ describe "Test musicos con canciones y presentaciones"{
 		assert.that(joaquin.laPego())
 	}
 	
+	test "Reconoce la cancion mas larga segun duracion de un album"{
+		assert.equals(laFamilia, especialLaFamilia.mayorCancionSegunDuracion())
+	}
 	
+	test "Reconoce la cancion mas larga segun duracion de un album 2"{
+		assert.equals(corazonAmericano, laSole.mayorCancionSegunDuracion())
+	}
+	
+	test "Reconoce la cancion mas larga segun largo letra de un album "{
+		assert.equals(eres, laSole.mayorCancionSegunLargoLetra())
+	}
+	
+	test "Reconoce la duracion de un remix"{
+		assert.equals(792, laFamiliaRemix.duracion())
+	}
+	
+	test "Reconoce la letra de un remix"{
+		assert.equals("mueve tu cuelpo baby Quiero brindar por mi gente sencilla, por el amor brindo por la familia yeah oh yeah", laFamiliaRemix.letra())
+	}
+	
+	test "Reconoce la duracion de un mashup"{
+		assert.equals(216, almaDeDiamanteCrisantemo.duracion())
+	}
+	
+	test "Reconoce la letra de un mashup"{
+		assert.equals("Ven a mi con tu dulce luz alma de diamante. Y aunque el sol se nuble despues sos alma de diamante. Cielo o piel silencio o verdad sos alma de diamante. Por eso ven asi con la humanidad alma de diamante Tocame junto a esta pared, yo quede por aqui... cuando no hubo mas luz... quiero mirar a traves de mi piel... Crisantemo, que se abrio... encuentra el camino hacia el cielo", almaDeDiamanteCrisantemo.letra())
+	}
+	
+	test "No permite agregar al Pdpalooza a un musico con hablidad menor a 70"{
+		joaquin.lanzarSolista()
+		assert.throwsExceptionWithType(new ExceptionHabilidadMenor70(), {pdpalooza.agregarMusico(joaquin)})
+	}
+	
+	test "No permite agregar al Pdpalooza a un musico sin canciones compuestas"{
+		lucia.habilidadBase(90)
+		assert.throwsExceptionWithType(new ExceptionNoCompusoCanciones(), {pdpalooza.agregarMusico(lucia)})
+	}
+	
+	test "Permite agregar al Pdpalooza a un musico que cumple las condiciones"{
+		soledad.habilidadBase(80)
+		pdpalooza.agregarMusico(soledad)
+		assert.that(pdpalooza.participaDelRecital(soledad))
+	}
 }

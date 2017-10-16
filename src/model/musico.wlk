@@ -10,6 +10,10 @@ class Musico{
 		elementoHabilidadExtra = _elementoHabilidadExtra
 	}
 	
+	method lanzarSolista() {
+		grupo = null
+	}
+	
 	method habilidadExtra()
 		
 	method habilidad(){
@@ -42,9 +46,14 @@ class Musico{
 	}
 	
 	method interpretaBien(cancion){
-		return albumes.anyone({album => album.poseeCancion(cancion)}) or self.habilidad()>60
+		return  albumes.any({album => album.poseeCancion(cancion)}) or self.habilidad()>60
 	}
 	
+	method noCompusoCanciones() = albumes.all({album => album.noContieneCanciones()})
+	
+	method habilidadBase(cantidad){
+		habilidadBase = cantidad
+	}
 }
 
 class MusicoDeGrupo inherits Musico{
@@ -58,7 +67,7 @@ class MusicoDeGrupo inherits Musico{
 	}
 	
 	override method interpretaBien(cancion){
-		if (cancion.duracion() > 300){
+ 		if (cancion.duracion() > 300){
 			return true
 		}else{
 			return super(cancion)
@@ -73,9 +82,6 @@ class MusicoDeGrupo inherits Musico{
 		}
 	}
 	
-	method lanzarSolista() {
-		grupo = null 
-	}
 }
 
 class MusicoVocalistaPopular inherits Musico{
@@ -105,9 +111,6 @@ class MusicoVocalistaPopular inherits Musico{
 		}
 	}
 	
-	method lanzarSolista() {
-		grupo = null 
-	}
 }
 
 object luisAlberto inherits Musico(null,8,null){

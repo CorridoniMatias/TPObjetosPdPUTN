@@ -2,18 +2,18 @@ import model.estadio.*
 
 describe "Test Estadios"{	
 	test "La capacidad de un estadio en determinada fecha (sabado)" {
-		assert.equals(700, laTrastienda.capacidad(5/8/2017))
+		assert.equals(700, laTrastienda.capacidad(new Date(5,8,2017)))
 	}
 	
 	test "La capacidad de un estadio en determinada fecha (no sabado)" {
-		assert.equals(400, laTrastienda.capacidad(8/8/2017))
+		assert.equals(400, laTrastienda.capacidad(new Date(8,8,2017)))
 	}
 	
 	test "La capacidad de un estadio que no hace promocion por fecha en determinada fecha (sabado)" {
-		assert.equals(9290, lunaPark.capacidad(5/8/2017))
+		assert.equals(9290, lunaPark.capacidad(new Date(5,8,2017)))
 	}
 	
 	test "La capacidad de un estadio que no hace promocion por fecha en determinada fecha (no sabado)" {
-		assert.equals(9290, lunaPark.capacidad(8/8/2017))
+		assert.equals(9290, lunaPark.capacidad(new Date(8,8,2017)))
 	}
 }
