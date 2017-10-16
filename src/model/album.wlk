@@ -33,6 +33,8 @@ class Album {
 
 	method cancionMasLarga() = canciones.max({cancion => cancion.largoLetra()})
 	
-	method bienVendido() = unidadesVendidas / unidadesEnVenta > 0.75 
+	method bienVendido() = unidadesVendidas / unidadesEnVenta > 0.75
+	
+	method poseeCancion(cancion) = canciones.contains(cancion)
 
 }

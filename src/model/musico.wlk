@@ -39,7 +39,12 @@ class Musico{
 	method laPego()
 	{
 		return albumes.all({album => album.bienVendido()})
-	}	 
+	}
+	
+	method interpretaBien(cancion){
+		return albumes.anyone({album => album.poseeCancion(cancion)}) or self.habilidad()>60
+	}
+	
 }
 
 class MusicoDeGrupo inherits Musico{
@@ -52,8 +57,12 @@ class MusicoDeGrupo inherits Musico{
 		}
 	}
 	
-	method interpretaBien(cancion){
-		return cancion.duracion() > 300
+	override method interpretaBien(cancion){
+		if (cancion.duracion() > 300){
+			return true
+		}else{
+			return super(cancion)
+		}
 	}
 	
 	method costoPresentacion(presentacion){
@@ -79,8 +88,13 @@ class MusicoVocalistaPopular inherits Musico{
 		}
 	}
 	
-	method interpretaBien(cancion){
-		return cancion.contienePalabra(elementoHabilidadExtra)
+	override method interpretaBien(cancion){
+		if (cancion.contienePalabra(elementoHabilidadExtra)){
+			return true
+		}
+		else{
+			return super(cancion)
+		}
 	}
 	
 	method costoPresentacion(presentacion){
@@ -108,7 +122,7 @@ object luisAlberto inherits Musico(null,8,null){
 		return 100.min(habilidadBase * guitarra.valor())
 	}
 	
-	method interpretaBien(cancion){
+	override method interpretaBien(cancion){
 		return true
 	}
 	
@@ -125,4 +139,5 @@ object luisAlberto inherits Musico(null,8,null){
 			return 1200
 		}
 	}
+	
 }
