@@ -3,6 +3,7 @@ class Musico{
 	var habilidadBase
 	var elementoHabilidadExtra
 	var albumes = #{}
+	const habilidadParaInterpretarBien = 60
 	
 	constructor(_grupo ,_habilidadBase , _elementoHabilidadExtra) {
 		grupo = _grupo
@@ -46,7 +47,7 @@ class Musico{
 	}
 	
 	method interpretaBien(cancion){
-		return  albumes.any({album => album.poseeCancion(cancion)}) or self.habilidad()>60
+		return  albumes.any({album => album.poseeCancion(cancion)}) or self.habilidad() > habilidadParaInterpretarBien
 	}
 	
 	method noCompusoCanciones() = albumes.all({album => album.noContieneCanciones()})

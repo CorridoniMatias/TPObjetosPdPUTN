@@ -48,12 +48,15 @@ object pdpalooza inherits Presentacion (lunaPark , new Date(15,12,2017)){
 		if (musico.habilidad() < 70){
 			throw new ExceptionHabilidadMenor70()
 		}
+		
 		if (musico.noCompusoCanciones()){
 			throw new ExceptionNoCompusoCanciones()
 		}
+		
 		if (not musico.interpretaBien(aliciaEnElPais)){
 			throw new ExceptionNoInterpretaBienAlicia()
 		}
+		
 		super(musico)
 	}
 	
