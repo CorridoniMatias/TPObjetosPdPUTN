@@ -1,14 +1,8 @@
-import estadio.*
-import cancion.*
-
-class ExceptionHabilidadMenor70 inherits Exception{}
-class ExceptionNoCompusoCanciones inherits Exception{}
-class ExceptionNoInterpretaBienAlicia inherits Exception{}
-
 class Presentacion{
 	var lugar
 	var fecha
 	var musicos = #{}
+	var condiciones = #{}
 	
 	constructor(_lugar, _fecha) {
 		lugar = _lugar
@@ -38,26 +32,19 @@ class Presentacion{
 	method participaDelRecital(musico) = musicos.contains(musico)
 	
 	method agregarMusico(musico){
+		self.cumpleCondiciones(musico)
 		musicos.add(musico)
 	}
-}
-
-object pdpalooza inherits Presentacion (lunaPark , new Date(15,12,2017)){
 	
-	override method agregarMusico (musico){
-		if (musico.habilidad() < 70){
-			throw new ExceptionHabilidadMenor70()
-		}
-		
-		if (musico.noCompusoCanciones()){
-			throw new ExceptionNoCompusoCanciones()
-		}
-		
-		if (not musico.interpretaBien(aliciaEnElPais)){
-			throw new ExceptionNoInterpretaBienAlicia()
-		}
-		
-		super(musico)
+	method agregarCondicion(condicion){
+		condiciones.add(condicion)
 	}
 	
+	method removerCondicion(condicion){
+		condiciones.remove(condicion)
+	}
+	
+	method cumpleCondiciones(artista){
+		condiciones.forEach({condicion => condicion.verificar(artista)})
+	}
 }

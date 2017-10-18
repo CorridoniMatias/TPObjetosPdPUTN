@@ -37,7 +37,13 @@ class Album {
 	
 	method noContieneCanciones() = canciones.isEmpty()
 	
-	//
+	method mayorCancionSegunCriterio(criterio) = canciones.max(criterio)
+	
+	method compararDuracion() 		= {cancion => cancion.duracion()}
+	
+	method compararLargoLetra() 	= {cancion => cancion.largoLetra()}
+	
+	method compararLargoTitulo() 	= {cancion => cancion.largoTitulo()}
 	
 	method cancionMasLarga()				= self.mayorCancionSegunCriterio(self.compararLargoLetra())
 	
@@ -46,21 +52,4 @@ class Album {
 	method mayorCancionSegunDuracion() 		= self.mayorCancionSegunCriterio(self.compararDuracion())
 	
 	method mayorCancionSegunTitulo()		= self.mayorCancionSegunCriterio(self.compararLargoTitulo())
-	
-	/* 
-	method cancionMasLarga() = canciones.max({cancion => cancion.largoLetra()})
-	
-	method mayorCancionSegunDuracion() = canciones.max({cancion => cancion.duracion()})
-	
-	method mayorCancionSegunLargoLetra() = self.cancionMasLarga()
-	
-	method mayorCancionSegunTitulo() = canciones.max({cancion => cancion.largoTitulo()})
-	*/
-	
-	// Abstracciones mayores
-	method mayorCancionSegunCriterio(criterio) = canciones.max(criterio)
-	
-	method compararDuracion() 		= {cancion => cancion.duracion()}
-	method compararLargoLetra() 	= {cancion => cancion.largoLetra()}
-	method compararLargoTitulo() 	= {cancion => cancion.largoTitulo()}
 }

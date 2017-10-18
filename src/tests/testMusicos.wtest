@@ -4,6 +4,7 @@ import model.instrumento.*
 import model.cancion.*
 import model.presentacion.*
 import model.album.*
+import model.condicion.*
 
 describe "Test musicos con canciones y presentaciones"{
 	
@@ -16,6 +17,7 @@ describe "Test musicos con canciones y presentaciones"{
 	//Presentaciones
 	var presentacionLunaPark 		= new Presentacion (lunaPark, new wollok.lang.Date(20, 4, 2017))
 	var presentacionLaTrastienda 	= new Presentacion (laTrastienda, new wollok.lang.Date(15, 11, 2017))
+	var pdpaloo					= new Presentacion (lunaPark , new Date(15,12,2017))
 	
 	//Canciones
 	var cisne 			 = new Cancion("Cisne", 312, "Hoy el viento se abrio quedo vacio el aire una vez mas y el manantial broto y nadie esta aqui y puedo ver que solo estallan las hojas al brillar")
@@ -24,6 +26,7 @@ describe "Test musicos con canciones y presentaciones"{
 	var almaDeDiamante 	 = new Cancion("Alma de Diamante", 216, "Ven a mi con tu dulce luz alma de diamante. Y aunque el sol se nuble despues sos alma de diamante. Cielo o piel silencio o verdad sos alma de diamante. Por eso ven asi con la humanidad alma de diamante")
 	var corazonAmericano = new Cancion("Corazon Americano", 154, "Canta corazon, canta mas alto, que tu pena al fin se va marchando, el nuevo milenio ha de encontrarnos, junto corazon, como soñamos.")
 	var crisantemo 		 = new Cancion("Crisantemo", 175, "Tocame junto a esta pared, yo quede por aqui... cuando no hubo mas luz... quiero mirar a traves de mi piel... Crisantemo, que se abrio... encuentra el camino hacia el cielo")
+	var alicia			 = new Cancion ("Alicia en el Pais", 510, "Quien sabe Alicia, este pais no estuvo hecho porque si. Te vas a ir, vas a salir pero te quedas, ¿donde más vas a ir? Y es que aqui, sabes el trabalenguas, trabalenguas, el asesino te asesina, y es mucho para ti. Se acabo ese juego que te hacía feliz.")
 	
 	//Remixes
 	var laFamiliaRemix = new Remix(laFamilia)
@@ -38,13 +41,17 @@ describe "Test musicos con canciones y presentaciones"{
 	var justCrisantemo 		= new Album("Just Crisantemo", new Date(5, 12, 2007), 28000, 27500)
 	
 	fixture {
+		pdpaloo.agregarCondicion(new Condicion({musico => musico.habilidad() >= 70}, "Musico con hablidad menor a 70"))
+		pdpaloo.agregarCondicion(new Condicion({musico => not musico.noCompusoCanciones()}, "Musico sin canciones compuestas"))
+		pdpaloo.agregarCondicion(new Condicion({musico => musico.interpretaBien(alicia)}, "Musico no interpreta bien alicia"))	
+		
 		presentacionLunaPark.agregarMusico(joaquin)
 		presentacionLunaPark.agregarMusico(lucia)
 		presentacionLunaPark.agregarMusico(luisAlberto)
 		presentacionLaTrastienda.agregarMusico(joaquin)
 		presentacionLaTrastienda.agregarMusico(lucia)
 		presentacionLaTrastienda.agregarMusico(luisAlberto)
-		
+				
 		especialLaFamilia.agregarCancion(laFamilia)
 		laSole.agregarCancion(eres)
 		laSole.agregarCancion(corazonAmericano)
@@ -265,17 +272,17 @@ describe "Test musicos con canciones y presentaciones"{
 	
 	test "No permite agregar al Pdpalooza a un musico con hablidad menor a 70"{
 		joaquin.lanzarSolista()
-		assert.throwsExceptionWithType(new ExceptionHabilidadMenor70(), {pdpalooza.agregarMusico(joaquin)})
+		assert.throwsExceptionWithMessage("Musico con hablidad menor a 70", {pdpaloo.agregarMusico(joaquin)})
 	}
 	
 	test "No permite agregar al Pdpalooza a un musico sin canciones compuestas"{
 		lucia.habilidadBase(90)
-		assert.throwsExceptionWithType(new ExceptionNoCompusoCanciones(), {pdpalooza.agregarMusico(lucia)})
+		assert.throwsExceptionWithMessage("Musico sin canciones compuestas", {pdpaloo.agregarMusico(lucia)})
 	}
 	
 	test "Permite agregar al Pdpalooza a un musico que cumple las condiciones"{
 		soledad.habilidadBase(80)
-		pdpalooza.agregarMusico(soledad)
-		assert.that(pdpalooza.participaDelRecital(soledad))
+		pdpaloo.agregarMusico(soledad)
+		assert.that(pdpaloo.participaDelRecital(soledad))
 	}
 }
