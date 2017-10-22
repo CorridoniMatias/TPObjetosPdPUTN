@@ -3,6 +3,7 @@ class Presentacion{
 	var fecha
 	var musicos = #{}
 	var condiciones = #{}
+	var bandas = #{}
 	
 	constructor(_lugar, _fecha) {
 		lugar = _lugar
@@ -25,6 +26,11 @@ class Presentacion{
 		return musicos.size()
 	}
 	
+	method agregarBanda(banda)
+	{
+		bandas.add(banda)
+	}
+	
 	method removerMusico(nombre){
 		musicos.remove(nombre)
 	}
@@ -45,6 +51,11 @@ class Presentacion{
 	
 	method cumpleCondiciones(artista){
 		condiciones.forEach({condicion => condicion.verificar(artista)})
+	}
+	
+	method magia()
+	{
+		return musicos.sum({musico => musico.habilidad()}) + bandas.sum({banda => banda.habilidad()})
 	}
 }
 

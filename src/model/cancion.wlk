@@ -16,6 +16,11 @@ class Cancion{
 		return duracion
 	}
 	
+	method tieneDuracionImpar()
+	{
+		return duracion.odd()
+	}
+	
 	method contienePalabra(texto)
 	{
 		return letra.toLowerCase().contains(texto.toLowerCase())
