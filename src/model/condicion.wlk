@@ -1,3 +1,5 @@
+class CondicionNoCumplidaException inherits Exception {}
+
 class Condicion {
 	var mensaje
 	var lambda
@@ -8,7 +10,7 @@ class Condicion {
 	
 	method verificar(musico){
 		if(! lambda.apply(musico)){
-			throw new Exception (mensaje)
+			throw new CondicionNoCumplidaException(mensaje)
 		}
 	}
 }

@@ -32,7 +32,6 @@ class Presentacion{
 	method participaDelRecital(musico) = musicos.contains(musico)
 	
 	method agregarMusico(musico){
-		self.cumpleCondiciones(musico)
 		musicos.add(musico)
 	}
 	
@@ -46,5 +45,14 @@ class Presentacion{
 	
 	method cumpleCondiciones(artista){
 		condiciones.forEach({condicion => condicion.verificar(artista)})
+	}
+}
+
+object pdplooza inherits Presentacion(lunaPark, new Date(15,12,2017))
+{
+	override method agregarMusico(musico)
+	{
+		self.cumpleCondiciones(musico)
+		super(musico)
 	}
 }

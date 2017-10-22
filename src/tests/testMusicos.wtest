@@ -17,7 +17,6 @@ describe "Test musicos con canciones y presentaciones"{
 	//Presentaciones
 	var presentacionLunaPark 		= new Presentacion (lunaPark, new wollok.lang.Date(20, 4, 2017))
 	var presentacionLaTrastienda 	= new Presentacion (laTrastienda, new wollok.lang.Date(15, 11, 2017))
-	var pdpaloo					= new Presentacion (lunaPark , new Date(15,12,2017))
 	
 	//Canciones
 	var cisne 			 = new Cancion("Cisne", 312, "Hoy el viento se abrio quedo vacio el aire una vez mas y el manantial broto y nadie esta aqui y puedo ver que solo estallan las hojas al brillar")
@@ -41,9 +40,9 @@ describe "Test musicos con canciones y presentaciones"{
 	var justCrisantemo 		= new Album("Just Crisantemo", new Date(5, 12, 2007), 28000, 27500)
 	
 	fixture {
-		pdpaloo.agregarCondicion(new Condicion({musico => musico.habilidad() >= 70}, "Musico con hablidad menor a 70"))
-		pdpaloo.agregarCondicion(new Condicion({musico => not musico.noCompusoCanciones()}, "Musico sin canciones compuestas"))
-		pdpaloo.agregarCondicion(new Condicion({musico => musico.interpretaBien(alicia)}, "Musico no interpreta bien alicia"))	
+		pdplooza.agregarCondicion(new Condicion({musico => musico.habilidad() >= 70}, "Musico con hablidad menor a 70"))
+		pdplooza.agregarCondicion(new Condicion({musico => not musico.noCompusoCanciones()}, "Musico sin canciones compuestas"))
+		pdplooza.agregarCondicion(new Condicion({musico => musico.interpretaBien(alicia)}, "Musico no interpreta bien alicia"))	
 		
 		presentacionLunaPark.agregarMusico(joaquin)
 		presentacionLunaPark.agregarMusico(lucia)
@@ -272,17 +271,17 @@ describe "Test musicos con canciones y presentaciones"{
 	
 	test "No permite agregar al Pdpalooza a un musico con hablidad menor a 70"{
 		joaquin.lanzarSolista()
-		assert.throwsExceptionWithMessage("Musico con hablidad menor a 70", {pdpaloo.agregarMusico(joaquin)})
+		assert.throwsExceptionWithType(new CondicionNoCumplidaException("Musico con hablidad menor a 70"), {pdplooza.agregarMusico(joaquin)})
 	}
 	
 	test "No permite agregar al Pdpalooza a un musico sin canciones compuestas"{
 		lucia.habilidadBase(90)
-		assert.throwsExceptionWithMessage("Musico sin canciones compuestas", {pdpaloo.agregarMusico(lucia)})
+		assert.throwsExceptionWithType(new CondicionNoCumplidaException("Musico sin canciones compuestas"), {pdplooza.agregarMusico(lucia)})
 	}
 	
 	test "Permite agregar al Pdpalooza a un musico que cumple las condiciones"{
 		soledad.habilidadBase(80)
-		pdpaloo.agregarMusico(soledad)
-		assert.that(pdpaloo.participaDelRecital(soledad))
+		pdplooza.agregarMusico(soledad)
+		assert.that(pdplooza.participaDelRecital(soledad))
 	}
 }
